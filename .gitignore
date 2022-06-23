@@ -1,0 +1,12 @@
+# Mac files
+.DS_Store
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+*.html
+
+# Goland files
+.idea
