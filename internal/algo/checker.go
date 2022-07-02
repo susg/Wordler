@@ -11,20 +11,20 @@ type BruteWordChecker struct {
 }
 
 func (wc BruteWordChecker) Check(word string) bool {
-	if wc.CheckWordLength(word) &&
-		wc.CheckFixedLettersProperlyPresent(word) &&
-		wc.CheckUnfixedLettersProperlyPresent(word) &&
-		wc.CheckExcludedLettersNotPresent(word) {
+	if wc.checkWordLength(word) &&
+		wc.checkFixedLettersProperlyPresent(word) &&
+		wc.checkUnfixedLettersProperlyPresent(word) &&
+		wc.checkExcludedLettersNotPresent(word) {
 		return true
 	}
 	return false
 }
 
-func (wc BruteWordChecker) CheckWordLength(word string) bool {
+func (wc BruteWordChecker) checkWordLength(word string) bool {
 	return len(word) == wc.wi.Length
 }
 
-func (wc BruteWordChecker) CheckFixedLettersProperlyPresent(word string) bool {
+func (wc BruteWordChecker) checkFixedLettersProperlyPresent(word string) bool {
 	for _, fl := range wc.wi.FixedLetters {
 		for _, p := range fl.Positions {
 			if string(word[p]) != fl.Letter {
@@ -35,18 +35,29 @@ func (wc BruteWordChecker) CheckFixedLettersProperlyPresent(word string) bool {
 	return true
 }
 
-func (wc BruteWordChecker) CheckUnfixedLettersProperlyPresent(word string) bool {
+func (wc BruteWordChecker) checkUnfixedLettersProperlyPresent(word string) bool {
 	for _, ul := range wc.wi.UnfixedLetters {
 		for _, p := range ul.Positions {
 			if string(word[p]) == ul.Letter {
 				return false
 			}
 		}
+
+		present := false
+		for _, c := range word {
+			if string(c) == ul.Letter {
+				present = true
+			}
+		}
+
+		if !present {
+			return false
+		}
 	}
 	return true
 }
 
-func (wc BruteWordChecker) CheckExcludedLettersNotPresent(word string) bool {
+func (wc BruteWordChecker) checkExcludedLettersNotPresent(word string) bool {
 	for _, el := range wc.wi.ExcludedLetters {
 		for _, c := range word {
 			if string(c) == el {

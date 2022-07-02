@@ -40,7 +40,7 @@ func TestBruteWordChecker_Check(t *testing.T) {
 			name: "test-3",
 			fields: fields{
 				wi: internal.WordInfo{
-					Length: 5,
+					Length:          5,
 					ExcludedLetters: []string{"a", "b"},
 				}},
 			args: args{"abcde"},
@@ -51,14 +51,12 @@ func TestBruteWordChecker_Check(t *testing.T) {
 			fields: fields{
 				wi: internal.WordInfo{
 					Length: 5,
-					FixedLetters: []internal.FixedLetter{
-						{
-							internal.LetterInfo{
-								Letter:    "a",
-								Positions: []int{0, 1},
-							},
+					FixedLetters: []internal.FixedLetter{{
+						internal.LetterInfo{
+							Letter:    "a",
+							Positions: []int{0, 1},
 						},
-					},
+					}},
 				}},
 			args: args{"abcde"},
 			want: false,
@@ -68,14 +66,12 @@ func TestBruteWordChecker_Check(t *testing.T) {
 			fields: fields{
 				wi: internal.WordInfo{
 					Length: 5,
-					UnfixedLetters: []internal.UnfixedLetter{
-						{
-							internal.LetterInfo{
-								Letter:    "a",
-								Positions: []int{0, 1},
-							},
+					UnfixedLetters: []internal.UnfixedLetter{{
+						internal.LetterInfo{
+							Letter:    "a",
+							Positions: []int{0, 1},
 						},
-					},
+					}},
 				}},
 			args: args{"abcde"},
 			want: false,
@@ -130,8 +126,8 @@ func TestBruteWordChecker_CheckWordLength(t *testing.T) {
 			wc := BruteWordChecker{
 				wi: tt.fields.wi,
 			}
-			if got := wc.CheckWordLength(tt.args.word); got != tt.want {
-				t.Errorf("CheckWordLength() = %v, want %v", got, tt.want)
+			if got := wc.checkWordLength(tt.args.word); got != tt.want {
+				t.Errorf("checkWordLength() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -183,8 +179,8 @@ func TestBruteWordChecker_CheckExcludedLettersNotPresent(t *testing.T) {
 			wc := BruteWordChecker{
 				wi: tt.fields.wi,
 			}
-			if got := wc.CheckExcludedLettersNotPresent(tt.args.word); got != tt.want {
-				t.Errorf("CheckExcludedLettersNotPresent() = %v, want %v", got, tt.want)
+			if got := wc.checkExcludedLettersNotPresent(tt.args.word); got != tt.want {
+				t.Errorf("checkExcludedLettersNotPresent() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -232,20 +228,17 @@ func TestBruteWordChecker_CheckFixedLettersProperlyPresent(t *testing.T) {
 			name: "test-3",
 			fields: fields{
 				wi: internal.WordInfo{
-					FixedLetters: []internal.FixedLetter{
-						{
-							internal.LetterInfo{
-								Letter:    "a",
-								Positions: []int{0},
-							},
+					FixedLetters: []internal.FixedLetter{{
+						internal.LetterInfo{
+							Letter:    "a",
+							Positions: []int{0},
 						},
-						{
-							internal.LetterInfo{
-								Letter:    "f",
-								Positions: []int{1},
-							},
+					}, {
+						internal.LetterInfo{
+							Letter:    "f",
+							Positions: []int{1},
 						},
-					},
+					}},
 				}},
 			args: args{"abcde"},
 			want: false,
@@ -254,20 +247,17 @@ func TestBruteWordChecker_CheckFixedLettersProperlyPresent(t *testing.T) {
 			name: "test-4",
 			fields: fields{
 				wi: internal.WordInfo{
-					FixedLetters: []internal.FixedLetter{
-						{
-							internal.LetterInfo{
-								Letter:    "a",
-								Positions: []int{0},
-							},
+					FixedLetters: []internal.FixedLetter{{
+						internal.LetterInfo{
+							Letter:    "a",
+							Positions: []int{0},
 						},
-						{
-							internal.LetterInfo{
-								Letter:    "c",
-								Positions: []int{2},
-							},
+					}, {
+						internal.LetterInfo{
+							Letter:    "c",
+							Positions: []int{2},
 						},
-					},
+					}},
 				}},
 			args: args{"abcde"},
 			want: true,
@@ -276,20 +266,17 @@ func TestBruteWordChecker_CheckFixedLettersProperlyPresent(t *testing.T) {
 			name: "test-5",
 			fields: fields{
 				wi: internal.WordInfo{
-					FixedLetters: []internal.FixedLetter{
-						{
-							internal.LetterInfo{
-								Letter:    "a",
-								Positions: []int{0, 4},
-							},
+					FixedLetters: []internal.FixedLetter{{
+						internal.LetterInfo{
+							Letter:    "a",
+							Positions: []int{0, 4},
 						},
-						{
-							internal.LetterInfo{
-								Letter:    "c",
-								Positions: []int{2},
-							},
+					}, {
+						internal.LetterInfo{
+							Letter:    "c",
+							Positions: []int{2},
 						},
-					},
+					}},
 				}},
 			args: args{"abcda"},
 			want: true,
@@ -300,8 +287,8 @@ func TestBruteWordChecker_CheckFixedLettersProperlyPresent(t *testing.T) {
 			wc := BruteWordChecker{
 				wi: tt.fields.wi,
 			}
-			if got := wc.CheckFixedLettersProperlyPresent(tt.args.word); got != tt.want {
-				t.Errorf("CheckFixedLettersProperlyPresent() = %v, want %v", got, tt.want)
+			if got := wc.checkFixedLettersProperlyPresent(tt.args.word); got != tt.want {
+				t.Errorf("checkFixedLettersProperlyPresent() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -333,14 +320,12 @@ func TestBruteWordChecker_CheckUnfixedLettersProperlyPresent(t *testing.T) {
 			name: "test-2",
 			fields: fields{
 				wi: internal.WordInfo{
-					UnfixedLetters: []internal.UnfixedLetter{
-						{
-							internal.LetterInfo{
-								Letter:    "a",
-								Positions: []int{0, 1},
-							},
+					UnfixedLetters: []internal.UnfixedLetter{{
+						internal.LetterInfo{
+							Letter:    "a",
+							Positions: []int{0, 1},
 						},
-					},
+					}},
 				}},
 			args: args{"abcde"},
 			want: false,
@@ -349,42 +334,36 @@ func TestBruteWordChecker_CheckUnfixedLettersProperlyPresent(t *testing.T) {
 			name: "test-3",
 			fields: fields{
 				wi: internal.WordInfo{
-					UnfixedLetters: []internal.UnfixedLetter{
-						{
-							internal.LetterInfo{
-								Letter:    "a",
-								Positions: []int{1},
-							},
+					UnfixedLetters: []internal.UnfixedLetter{{
+						internal.LetterInfo{
+							Letter:    "a",
+							Positions: []int{1},
 						},
-						{
-							internal.LetterInfo{
-								Letter:    "f",
-								Positions: []int{1},
-							},
+					}, {
+						internal.LetterInfo{
+							Letter:    "f",
+							Positions: []int{1},
 						},
-					},
+					}},
 				}},
 			args: args{"abcde"},
-			want: true,
+			want: false,
 		},
 		{
 			name: "test-4",
 			fields: fields{
 				wi: internal.WordInfo{
-					UnfixedLetters: []internal.UnfixedLetter{
-						{
-							internal.LetterInfo{
-								Letter:    "a",
-								Positions: []int{1, 2},
-							},
+					UnfixedLetters: []internal.UnfixedLetter{{
+						internal.LetterInfo{
+							Letter:    "a",
+							Positions: []int{1, 2},
 						},
-						{
-							internal.LetterInfo{
-								Letter:    "c",
-								Positions: []int{0, 4},
-							},
+					}, {
+						internal.LetterInfo{
+							Letter:    "c",
+							Positions: []int{0, 4},
 						},
-					},
+					}},
 				}},
 			args: args{"abcde"},
 			want: true,
@@ -393,32 +372,45 @@ func TestBruteWordChecker_CheckUnfixedLettersProperlyPresent(t *testing.T) {
 			name: "test-5",
 			fields: fields{
 				wi: internal.WordInfo{
-					UnfixedLetters: []internal.UnfixedLetter{
-						{
-							internal.LetterInfo{
-								Letter:    "a",
-								Positions: []int{4},
-							},
+					UnfixedLetters: []internal.UnfixedLetter{{
+						internal.LetterInfo{
+							Letter:    "a",
+							Positions: []int{4},
 						},
-						{
-							internal.LetterInfo{
-								Letter:    "b",
-								Positions: []int{0, 1},
-							},
+					}, {
+						internal.LetterInfo{
+							Letter:    "b",
+							Positions: []int{0, 1},
 						},
-					},
+					}},
 				}},
 			args: args{"abcde"},
 			want: false,
 		},
+		//{
+		//	name: "test-6",
+		//	fields: fields{
+		//		wi: internal.WordInfo{
+		//			UnfixedLetters: []internal.UnfixedLetter{
+		//				{
+		//					internal.LetterInfo{
+		//						Letter:    "a",
+		//						Positions: []int{0, 1},
+		//					},
+		//				},
+		//			},
+		//		}},
+		//	args: args{"bcdef"},
+		//	want: false,
+		//},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			wc := BruteWordChecker{
 				wi: tt.fields.wi,
 			}
-			if got := wc.CheckUnfixedLettersProperlyPresent(tt.args.word); got != tt.want {
-				t.Errorf("CheckUnfixedLettersProperlyPresent() = %v, want %v", got, tt.want)
+			if got := wc.checkUnfixedLettersProperlyPresent(tt.args.word); got != tt.want {
+				t.Errorf("checkUnfixedLettersProperlyPresent() = %v, want %v", got, tt.want)
 			}
 		})
 	}
