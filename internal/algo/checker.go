@@ -46,7 +46,7 @@ func (wc BruteWordChecker) checkUnfixedLettersProperlyPresent(word string) bool 
 		present := false
 		for _, c := range word {
 			if string(c) == ul.Letter {
-				present = true
+				present = true // todo: check frequency
 			}
 		}
 

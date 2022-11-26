@@ -52,7 +52,7 @@ func TestBruteWordChecker_Check(t *testing.T) {
 				wi: internal.WordInfo{
 					Length: 5,
 					FixedLetters: []internal.FixedLetter{{
-						internal.LetterInfo{
+						LetterInfo: internal.LetterInfo{
 							Letter:    "a",
 							Positions: []int{0, 1},
 						},
@@ -67,7 +67,7 @@ func TestBruteWordChecker_Check(t *testing.T) {
 				wi: internal.WordInfo{
 					Length: 5,
 					UnfixedLetters: []internal.UnfixedLetter{{
-						internal.LetterInfo{
+						LetterInfo: internal.LetterInfo{
 							Letter:    "a",
 							Positions: []int{0, 1},
 						},
@@ -212,13 +212,12 @@ func TestBruteWordChecker_CheckFixedLettersProperlyPresent(t *testing.T) {
 			name: "test-2",
 			fields: fields{
 				wi: internal.WordInfo{
-					FixedLetters: []internal.FixedLetter{
-						{
-							internal.LetterInfo{
-								Letter:    "a",
-								Positions: []int{0, 1},
-							},
+					FixedLetters: []internal.FixedLetter{{
+						LetterInfo: internal.LetterInfo{
+							Letter:    "a",
+							Positions: []int{0, 1},
 						},
+					},
 					},
 				}},
 			args: args{"abcde"},
@@ -229,12 +228,12 @@ func TestBruteWordChecker_CheckFixedLettersProperlyPresent(t *testing.T) {
 			fields: fields{
 				wi: internal.WordInfo{
 					FixedLetters: []internal.FixedLetter{{
-						internal.LetterInfo{
+						LetterInfo: internal.LetterInfo{
 							Letter:    "a",
 							Positions: []int{0},
 						},
 					}, {
-						internal.LetterInfo{
+						LetterInfo: internal.LetterInfo{
 							Letter:    "f",
 							Positions: []int{1},
 						},
@@ -248,12 +247,12 @@ func TestBruteWordChecker_CheckFixedLettersProperlyPresent(t *testing.T) {
 			fields: fields{
 				wi: internal.WordInfo{
 					FixedLetters: []internal.FixedLetter{{
-						internal.LetterInfo{
+						LetterInfo: internal.LetterInfo{
 							Letter:    "a",
 							Positions: []int{0},
 						},
 					}, {
-						internal.LetterInfo{
+						LetterInfo: internal.LetterInfo{
 							Letter:    "c",
 							Positions: []int{2},
 						},
@@ -267,12 +266,12 @@ func TestBruteWordChecker_CheckFixedLettersProperlyPresent(t *testing.T) {
 			fields: fields{
 				wi: internal.WordInfo{
 					FixedLetters: []internal.FixedLetter{{
-						internal.LetterInfo{
+						LetterInfo: internal.LetterInfo{
 							Letter:    "a",
 							Positions: []int{0, 4},
 						},
 					}, {
-						internal.LetterInfo{
+						LetterInfo: internal.LetterInfo{
 							Letter:    "c",
 							Positions: []int{2},
 						},
@@ -321,7 +320,7 @@ func TestBruteWordChecker_CheckUnfixedLettersProperlyPresent(t *testing.T) {
 			fields: fields{
 				wi: internal.WordInfo{
 					UnfixedLetters: []internal.UnfixedLetter{{
-						internal.LetterInfo{
+						LetterInfo: internal.LetterInfo{
 							Letter:    "a",
 							Positions: []int{0, 1},
 						},
@@ -335,12 +334,12 @@ func TestBruteWordChecker_CheckUnfixedLettersProperlyPresent(t *testing.T) {
 			fields: fields{
 				wi: internal.WordInfo{
 					UnfixedLetters: []internal.UnfixedLetter{{
-						internal.LetterInfo{
+						LetterInfo: internal.LetterInfo{
 							Letter:    "a",
 							Positions: []int{1},
 						},
 					}, {
-						internal.LetterInfo{
+						LetterInfo: internal.LetterInfo{
 							Letter:    "f",
 							Positions: []int{1},
 						},
@@ -354,12 +353,12 @@ func TestBruteWordChecker_CheckUnfixedLettersProperlyPresent(t *testing.T) {
 			fields: fields{
 				wi: internal.WordInfo{
 					UnfixedLetters: []internal.UnfixedLetter{{
-						internal.LetterInfo{
+						LetterInfo: internal.LetterInfo{
 							Letter:    "a",
 							Positions: []int{1, 2},
 						},
 					}, {
-						internal.LetterInfo{
+						LetterInfo: internal.LetterInfo{
 							Letter:    "c",
 							Positions: []int{0, 4},
 						},
@@ -373,12 +372,12 @@ func TestBruteWordChecker_CheckUnfixedLettersProperlyPresent(t *testing.T) {
 			fields: fields{
 				wi: internal.WordInfo{
 					UnfixedLetters: []internal.UnfixedLetter{{
-						internal.LetterInfo{
+						LetterInfo: internal.LetterInfo{
 							Letter:    "a",
 							Positions: []int{4},
 						},
 					}, {
-						internal.LetterInfo{
+						LetterInfo: internal.LetterInfo{
 							Letter:    "b",
 							Positions: []int{0, 1},
 						},
@@ -387,22 +386,6 @@ func TestBruteWordChecker_CheckUnfixedLettersProperlyPresent(t *testing.T) {
 			args: args{"abcde"},
 			want: false,
 		},
-		//{
-		//	name: "test-6",
-		//	fields: fields{
-		//		wi: internal.WordInfo{
-		//			UnfixedLetters: []internal.UnfixedLetter{
-		//				{
-		//					internal.LetterInfo{
-		//						Letter:    "a",
-		//						Positions: []int{0, 1},
-		//					},
-		//				},
-		//			},
-		//		}},
-		//	args: args{"bcdef"},
-		//	want: false,
-		//},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
