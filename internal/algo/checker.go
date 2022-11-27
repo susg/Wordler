@@ -1,6 +1,6 @@
 package algo
 
-import "wordler/internal"
+import "github.com/susg/wordler/internal"
 
 type WordChecker interface {
 	Check(word string) bool

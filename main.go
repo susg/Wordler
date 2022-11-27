@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"wordler/internal/orchestrator"
+	"github.com/susg/wordler/internal/orchestrator"
 )
 
 func main() {

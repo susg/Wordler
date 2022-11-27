@@ -1,4 +1,4 @@
-module wordler
+module github.com/susg/wordler
 
 go 1.15
 

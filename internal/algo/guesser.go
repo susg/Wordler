@@ -2,7 +2,7 @@ package algo
 
 import (
 	"fmt"
-	"wordler/internal"
+	"github.com/susg/wordler/internal"
 )
 
 type WordGuesser struct {

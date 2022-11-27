@@ -2,7 +2,8 @@ package algo
 
 import (
 	"testing"
-	"wordler/internal"
+
+	"github.com/susg/wordler/internal"
 )
 
 func TestBruteWordChecker_Check(t *testing.T) {

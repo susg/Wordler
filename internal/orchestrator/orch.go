@@ -3,8 +3,8 @@ package orchestrator
 import (
 	"fmt"
 
-	"wordler/internal"
-	"wordler/internal/algo"
+	"github.com/susg/wordler/internal"
+	"github.com/susg/wordler/internal/algo"
 )
 
 type WordleManager struct {

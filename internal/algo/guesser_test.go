@@ -3,7 +3,8 @@ package algo
 import (
 	"reflect"
 	"testing"
-	"wordler/internal"
+
+	"github.com/susg/wordler/internal"
 )
 
 func TestWordGuesser_Guess(t *testing.T) {
